@@ -161,7 +161,6 @@ const variantLayersSetup = (layersOrder) => {
         ? layerObj.options?.["bypassDNA"]
         : false,
   }));
-  console.log("layers", layers);
   return layers;
 };
 const saveImage = (_editionCount) => {
@@ -482,6 +481,7 @@ const startCreating = async (hasVariants) => {
       layerConfigurations[layerConfigIndex].layersOrder,
       hasVariants
     );
+
     while (
       editionCount <= layerConfigurations[layerConfigIndex].growEditionSizeTo
     ) {
@@ -494,7 +494,7 @@ const startCreating = async (hasVariants) => {
           ? constructVariantLayerToDna(newDna, layers, variant)
           : constructLayerToDna(newDna, layers);
         let loadedElements = [];
-        console.log("results", results);
+
         results.forEach((layer) => {
           loadedElements.push(loadLayerImg(layer));
         });

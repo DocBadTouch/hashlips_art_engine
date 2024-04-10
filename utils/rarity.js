@@ -2,7 +2,10 @@ const basePath = process.cwd();
 const fs = require("fs");
 const layersDir = `${basePath}/layers`;
 
-const { layerConfigurations } = require(`${basePath}/src/config.js`);
+const {
+  layerConfigurations,
+  layerConfigurationsWithVariants,
+} = require(`${basePath}/src/config.js`);
 
 const { getElements } = require("../src/main.js");
 
@@ -14,33 +17,49 @@ let editionSize = data.length;
 let rarityData = [];
 
 // intialize layers to chart
-layerConfigurations.forEach((config) => {
-  let layers = config.layersOrder;
+const AddToRarityData = (configuration, hasVariants) => {
+  configuration.forEach((config) => {
+    let layers = config.layersOrder;
 
-  layers.forEach((layer) => {
-    // get elements for each layer
-    let elementsForLayer = [];
-    let elements = getElements(`${layersDir}/${layer.name}/`);
-    elements.forEach((element) => {
-      // just get name and weight for each element
-      let rarityDataElement = {
-        trait: element.name,
-        weight: element.weight.toFixed(0),
-        occurrence: 0, // initialize at 0
-      };
-      elementsForLayer.push(rarityDataElement);
+    layers.forEach((layer) => {
+      // get elements for each layer
+      let elementsForLayer = [];
+      let elements = hasVariants
+        ? layer.elements
+        : getElements(`${layersDir}/${layer.name}/`);
+      elements.forEach((element) => {
+        // just get name and weight for each element
+        let rarityDataElement = {
+          trait: element.name,
+          weight: element.weight.toFixed(0),
+          occurrence: 0, // initialize at 0
+        };
+        elementsForLayer.push(rarityDataElement);
+      });
+      let layerName =
+        layer.options?.["displayName"] != undefined
+          ? layer.options?.["displayName"]
+          : layer.name;
+      // don't include duplicate layers
+      if (!rarityData.includes(layer.name)) {
+        // add elements for each layer to chart
+        rarityData[layerName] = elementsForLayer;
+      } else {
+        elementsForLayer.forEach((element) => {
+          const el = rarityData[layerName].find(
+            (el) => el.trait === element.trait
+          );
+          if (el) {
+            el.weight += element.weight;
+          } else {
+            //rarityData[layerName].push(element);
+          }
+        });
+      }
     });
-    let layerName =
-      layer.options?.["displayName"] != undefined
-        ? layer.options?.["displayName"]
-        : layer.name;
-    // don't include duplicate layers
-    if (!rarityData.includes(layer.name)) {
-      // add elements for each layer to chart
-      rarityData[layerName] = elementsForLayer;
-    }
   });
-});
+};
+AddToRarityData(layerConfigurationsWithVariants, true);
 
 // fill up rarity chart with occurrences from metadata
 data.forEach((element) => {
@@ -63,12 +82,15 @@ data.forEach((element) => {
 for (var layer in rarityData) {
   for (var attribute in rarityData[layer]) {
     // get chance
-    let chance =
-      ((rarityData[layer][attribute].occurrence / editionSize) * 100).toFixed(2);
+    let chance = (
+      (rarityData[layer][attribute].occurrence / editionSize) *
+      100
+    ).toFixed(2);
 
     // show two decimal places in percent
-    rarityData[layer][attribute].occurrence =
-      `${rarityData[layer][attribute].occurrence} in ${editionSize} editions (${chance} %)`;
+    rarityData[layer][
+      attribute
+    ].occurrence = `${rarityData[layer][attribute].occurrence} in ${editionSize} editions (${chance} %)`;
   }
 }
 
