@@ -11,7 +11,8 @@ const {
   description,
   background,
   uniqueDnaTorrance,
-  layerConfigurations,
+  layerConfigurations: layerConfigurationsWithOutVariants,
+  layerConfigurationsWithVariants,
   rarityDelimiter,
   shuffleLayerConfigurations,
   debugLogs,
@@ -67,7 +68,17 @@ const cleanName = (_str) => {
   var nameWithoutWeight = nameWithoutExtension.split(rarityDelimiter).shift();
   return nameWithoutWeight;
 };
-
+/**
+ *
+ * @param {string} path
+ * @returns {{
+ * id: number,
+ * name: string,
+ * filename: string,
+ * path: string,
+ * weight: number
+ * }[]}
+ */
 const getElements = (path) => {
   return fs
     .readdirSync(path)
@@ -85,8 +96,22 @@ const getElements = (path) => {
       };
     });
 };
-
-const layersSetup = (layersOrder) => {
+/**  
+ @returns  {{
+  id: number,
+  elements: {}
+  name: string,
+  blend: string,
+  opacity: number,
+  bypassDNA: boolean,}[]
+} */
+const layersSetup = (layersOrder, hasVariants) => {
+  const layers = hasVariants
+    ? variantLayersSetup(layersOrder)
+    : baseLayersSetup(layersOrder);
+  return layers;
+};
+const baseLayersSetup = (layersOrder) => {
   const layers = layersOrder.map((layerObj, index) => ({
     id: index,
     elements: getElements(`${layersDir}/${layerObj.name}/`),
@@ -107,9 +132,38 @@ const layersSetup = (layersOrder) => {
         ? layerObj.options?.["bypassDNA"]
         : false,
   }));
+
   return layers;
 };
-
+const variantLayersSetup = (layersOrder) => {
+  const layers = layersOrder.map((layerObj, index) => ({
+    id: index,
+    hasVariants: layerObj.hasVariants,
+    elements: layerObj.elements.map((element) => ({
+      ...element,
+      path: `${layersDir}\\${element.path.replace("/", "\\")}`,
+      filename: element.path.split("/").pop(),
+    })),
+    name:
+      layerObj.options?.["displayName"] != undefined
+        ? layerObj.options?.["displayName"]
+        : layerObj.name,
+    blend:
+      layerObj.options?.["blend"] != undefined
+        ? layerObj.options?.["blend"]
+        : "source-over",
+    opacity:
+      layerObj.options?.["opacity"] != undefined
+        ? layerObj.options?.["opacity"]
+        : 1,
+    bypassDNA:
+      layerObj.options?.["bypassDNA"] !== undefined
+        ? layerObj.options?.["bypassDNA"]
+        : false,
+  }));
+  console.log("layers", layers);
+  return layers;
+};
 const saveImage = (_editionCount) => {
   fs.writeFileSync(
     `${buildDir}/images/${_editionCount}.png`,
@@ -218,12 +272,30 @@ const drawElement = (_renderObject, _index, _layersLen) => {
 
   addAttributes(_renderObject);
 };
-
 const constructLayerToDna = (_dna = "", _layers = []) => {
   let mappedDnaToLayers = _layers.map((layer, index) => {
     let selectedElement = layer.elements.find(
       (e) => e.id == cleanDna(_dna.split(DNA_DELIMITER)[index])
     );
+    return {
+      name: layer.name,
+      blend: layer.blend,
+      opacity: layer.opacity,
+      selectedElement: selectedElement,
+    };
+  });
+  return mappedDnaToLayers;
+};
+const constructVariantLayerToDna = (_dna = "", _layers = [], variant) => {
+  let mappedDnaToLayers = _layers.map((layer, index) => {
+    let layerDna = _dna.split(DNA_DELIMITER)[index];
+    let layerElements = layer.hasVariants
+      ? layer.elements.filter((e) => e.variant == variant)
+      : layer.elements;
+    let selectedElement = layerElements.find((e) => {
+      let cleanId = cleanDna(layerDna);
+      return e.id == cleanId;
+    });
     return {
       name: layer.name,
       blend: layer.blend,
@@ -279,6 +351,56 @@ const isDnaUnique = (_DnaList = new Set(), _dna = "") => {
   return !_DnaList.has(_filteredDNA);
 };
 
+const createDnaWithVariants = (_layers) => {
+  let randNum = new Array(_layers.length);
+  //let actualLayerOrder = new Array(_layers.length);
+  let variant;
+  const layers = _layers.sort((a, b) => a.decisionOrder - b.decisionOrder);
+  layers.forEach((layer) => {
+    var totalWeight = 0;
+    const layerIndex = layer.layerOrder;
+    let elements =
+      layer.hasVariants && variant
+        ? layer.elements.filter((element) => element.variant == variant)
+        : layer.elements;
+    elements.forEach((element) => {
+      totalWeight += element.weight;
+    });
+    // number between 0 - totalWeight
+    let random = Math.floor(Math.random() * totalWeight);
+
+    for (var i = 0; i < elements.length; i++) {
+      // subtract the current weight from the random weight until we reach a sub zero value.
+      random -= elements[i].weight;
+      if (random < 0) {
+        const id = elements[i].id;
+        const filename = elements[i].filename;
+        const finalIndex = elements[i].layerIndex ?? layerIndex;
+        variant =
+          elements[i].variant == "Default" ? variant : elements[i].variant;
+        const bypassDNA = layer.bypassDNA ? "?bypassDNA=true" : "";
+        const elementString = `${id}:${filename}${bypassDNA}`;
+        if (finalIndex < layerIndex) {
+          // if index is lower than the current index, we need to insert it at the correct index shifting the rest of the elements
+          //actualLayerOrder.splice(finalIndex, 0, layer);
+          return randNum.splice(finalIndex, 0, elementString);
+        } // if index is the same as the current index, we can just insert it at the index
+        else {
+          //actualLayerOrder[finalIndex] = layer;
+          return (randNum[finalIndex] = elementString);
+        }
+
+        /// return (randNum[finalIndex] = elementString);
+      }
+    }
+  });
+  return {
+    newDna: randNum.join(DNA_DELIMITER),
+    variant,
+    //layersInDNAOrder: actualLayerOrder,
+  };
+};
+
 const createDna = (_layers) => {
   let randNum = [];
   _layers.forEach((layer) => {
@@ -300,7 +422,7 @@ const createDna = (_layers) => {
       }
     }
   });
-  return randNum.join(DNA_DELIMITER);
+  return { newDna: randNum.join(DNA_DELIMITER) };
 };
 
 const writeMetaData = (_data) => {
@@ -334,11 +456,14 @@ function shuffle(array) {
   return array;
 }
 
-const startCreating = async () => {
+const startCreating = async (hasVariants) => {
   let layerConfigIndex = 0;
   let editionCount = 1;
   let failedCount = 0;
   let abstractedIndexes = [];
+  let layerConfigurations = hasVariants
+    ? layerConfigurationsWithVariants
+    : layerConfigurationsWithOutVariants;
   for (
     let i = network == NETWORK.sol ? 0 : 1;
     i <= layerConfigurations[layerConfigurations.length - 1].growEditionSizeTo;
@@ -354,21 +479,28 @@ const startCreating = async () => {
     : null;
   while (layerConfigIndex < layerConfigurations.length) {
     const layers = layersSetup(
-      layerConfigurations[layerConfigIndex].layersOrder
+      layerConfigurations[layerConfigIndex].layersOrder,
+      hasVariants
     );
     while (
       editionCount <= layerConfigurations[layerConfigIndex].growEditionSizeTo
     ) {
-      let newDna = createDna(layers);
+      let { newDna, variant /* layersInDNAOrder */ } = hasVariants
+        ? createDnaWithVariants(layers)
+        : createDna(layers);
+      console.log("newDna", newDna);
       if (isDnaUnique(dnaList, newDna)) {
-        let results = constructLayerToDna(newDna, layers);
+        let results = hasVariants
+          ? constructVariantLayerToDna(newDna, layers, variant)
+          : constructLayerToDna(newDna, layers);
         let loadedElements = [];
-
+        console.log("results", results);
         results.forEach((layer) => {
           loadedElements.push(loadLayerImg(layer));
         });
 
         await Promise.all(loadedElements).then((renderObjectArray) => {
+          //renderObjectArray is type of {layer, loadedImage}[]
           debugLogs ? console.log("Clearing canvas") : null;
           ctx.clearRect(0, 0, format.width, format.height);
           if (gif.export) {
@@ -386,6 +518,7 @@ const startCreating = async () => {
             drawBackground();
           }
           renderObjectArray.forEach((renderObject, index) => {
+            //renderObject is type of {layer, loadedImage}
             drawElement(
               renderObject,
               index,
