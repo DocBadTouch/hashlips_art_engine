@@ -1,6 +1,7 @@
 const basePath = process.cwd();
 const { NETWORK } = require(`${basePath}/constants/network.js`);
 const fs = require("fs");
+const { totalRarityMap } = require("./layerConfig");
 const sha1 = require(`${basePath}/node_modules/sha1`);
 const { createCanvas, loadImage } = require(`${basePath}/node_modules/canvas`);
 const buildDir = `${basePath}/build`;
@@ -349,50 +350,115 @@ const isDnaUnique = (_DnaList = new Set(), _dna = "") => {
   const _filteredDNA = filterDNAOptions(_dna);
   return !_DnaList.has(_filteredDNA);
 };
-
+const usedLayerElements = new Map();
 const createDnaWithVariants = (_layers) => {
   let randNum = new Array(_layers.length);
+  //create a deep copy of the layers array
+  let layersCopy = JSON.parse(JSON.stringify(_layers));
   //let actualLayerOrder = new Array(_layers.length);
   let variant;
-  const layers = _layers.sort((a, b) => a.decisionOrder - b.decisionOrder);
-  layers.forEach((layer) => {
-    var totalWeight = 0;
-    const layerIndex = layer.layerOrder;
-    let elements =
-      layer.hasVariants && variant
-        ? layer.elements.filter((element) => element.variant == variant)
-        : layer.elements;
-    elements.forEach((element) => {
-      totalWeight += element.weight;
-    });
-    // number between 0 - totalWeight
-    let random = Math.floor(Math.random() * totalWeight);
+  const layers = layersCopy.sort((a, b) => a.decisionOrder - b.decisionOrder);
+  let isNotValid = true;
+  let keysUsed = [];
+  while (isNotValid) {
+    console.log("Trying to create DNA with variants...");
+    for (let k = 0; k < layers.length; k++) {
+      const layer = layers[k];
 
-    for (var i = 0; i < elements.length; i++) {
-      // subtract the current weight from the random weight until we reach a sub zero value.
-      random -= elements[i].weight;
-      if (random < 0) {
-        const id = elements[i].id;
-        const filename = elements[i].filename;
-        const finalIndex = elements[i].layerIndex ?? layerIndex;
-        variant =
-          elements[i].variant == "Default" ? variant : elements[i].variant;
-        const bypassDNA = layer.bypassDNA ? "?bypassDNA=true" : "";
-        const elementString = `${id}:${filename}${bypassDNA}`;
-        if (finalIndex < layerIndex) {
-          // if index is lower than the current index, we need to insert it at the correct index shifting the rest of the elements
-          //actualLayerOrder.splice(finalIndex, 0, layer);
-          return randNum.splice(finalIndex, 0, elementString);
-        } // if index is the same as the current index, we can just insert it at the index
-        else {
-          //actualLayerOrder[finalIndex] = layer;
-          return (randNum[finalIndex] = elementString);
+      var totalWeight = 0;
+      const layerIndex = layer.layerOrder;
+      let elements =
+        layer.hasVariants && variant
+          ? layer.elements.filter((element) => element.variant == variant)
+          : layer.elements;
+      elements.forEach((element) => {
+        totalWeight += element.weight;
+      });
+      // number between 0 - totalWeight
+      if (elements.length == 0) {
+        console.log(
+          `Layer ${layer.name} has no elements with variant ${variant}. Skipping layer.`
+        );
+        isNotValid = true;
+        variant = null;
+        keysUsed = [];
+        break;
+      }
+      let random = Math.floor(Math.random() * totalWeight);
+      for (var i = 0; i < elements.length; i++) {
+        // subtract the current weight from the random weight until we reach a sub zero value.
+        random -= elements[i].weight;
+
+        if (random < 0) {
+          const elKey = `${elements[i].name}-${elements[i].variant}`;
+          const key = `${layer.name}-${elKey}`;
+          if (usedLayerElements.has(key)) {
+            const usedCount = usedLayerElements.get(key);
+            //console.log("LayerName", layer.name);
+            const rarityLayer = totalRarityMap[layer.name];
+            //console.log("Rarity Layer", rarityLayer);
+            //console.log(`Element ${key} has been used ${usedCount} times.`);
+            let flexedRarity =
+              rarityLayer[elKey] >= 100
+                ? rarityLayer[elKey] * 1.01
+                : rarityLayer[elKey];
+            if (usedCount > flexedRarity /* give some flex */) {
+              /* console.log("LayerName", layer.name, elements);
+              console.log("Layers", layers); */
+              console.log(
+                `Element ${key} has been used ${usedCount} times, which is more than its weight of ${rarityLayer[elKey]}. FlexRarity ${flexedRarity}. Resetting random number and trying again.`
+              );
+              //remove the element from the layers array
+              //find index of element in layer.elements
+              const elementIndex = layer.elements.findIndex(
+                (element) =>
+                  element.name == elements[i].name &&
+                  element.variant == elements[i].variant
+              );
+              //remove element from layer.elements
+              layer.elements.splice(elementIndex, 1);
+
+              //console.log("Layer", layer.elements);
+              isNotValid = true;
+              variant = null;
+              keysUsed = [];
+              break;
+            }
+            keysUsed.push(key);
+            //usedLayerElements.set(key, usedCount + 1); //THis is getting set on each iteration.. need to keep track internally THEN update the used amoutns
+          } else {
+            keysUsed.push(key);
+            //usedLayerElements.set(key, 1);
+          }
+          isNotValid = false;
+          const id = elements[i].id;
+          const filename = elements[i].filename;
+          const finalIndex = elements[i].layerIndex ?? layerIndex;
+          variant =
+            elements[i].variant == "Default" ? variant : elements[i].variant;
+          const bypassDNA = layer.bypassDNA ? "?bypassDNA=true" : "";
+          const elementString = `${id}:${filename}${bypassDNA}`;
+          randNum[finalIndex] = elementString;
+          break;
+          /// return (randNum[finalIndex] = elementString);
         }
+      }
+      if (isNotValid) {
+        console.log("Trying again...");
 
-        /// return (randNum[finalIndex] = elementString);
+        break;
       }
     }
+  }
+  keysUsed.forEach((key) => {
+    if (usedLayerElements.has(key)) {
+      const usedCount = usedLayerElements.get(key);
+      usedLayerElements.set(key, usedCount + 1);
+    } else {
+      usedLayerElements.set(key, 1);
+    }
   });
+  //console.log("Used Layer Elements", usedLayerElements);
   return {
     newDna: randNum.join(DNA_DELIMITER),
     variant,

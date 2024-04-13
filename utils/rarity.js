@@ -14,7 +14,7 @@ let rawdata = fs.readFileSync(`${basePath}/build/json/_metadata.json`);
 let data = JSON.parse(rawdata);
 let editionSize = data.length;
 
-let rarityData = [];
+let rarityData = {};
 
 // intialize layers to chart
 const AddToRarityData = (configuration, hasVariants) => {
@@ -28,10 +28,12 @@ const AddToRarityData = (configuration, hasVariants) => {
         ? layer.elements
         : getElements(`${layersDir}/${layer.name}/`);
       elements.forEach((element) => {
+        //console.log(layer.name, element.name, element.weight);
         // just get name and weight for each element
         let rarityDataElement = {
           trait: element.name,
-          weight: element.weight.toFixed(0),
+          variant: element.variant,
+          weight: +element.weight, //.toFixed(0),
           occurrence: 0, // initialize at 0
         };
         elementsForLayer.push(rarityDataElement);
@@ -41,18 +43,19 @@ const AddToRarityData = (configuration, hasVariants) => {
           ? layer.options?.["displayName"]
           : layer.name;
       // don't include duplicate layers
-      if (!rarityData.includes(layer.name)) {
+      if (!rarityData[layerName]) {
         // add elements for each layer to chart
         rarityData[layerName] = elementsForLayer;
+        //console.log(layerName, rarityData[layerName]);
       } else {
         elementsForLayer.forEach((element) => {
-          const el = rarityData[layerName].find(
-            (el) => el.trait === element.trait
+          const index = rarityData[layerName].findIndex(
+            (el) => el.trait === element.trait && el.variant === element.variant
           );
-          if (el) {
-            el.weight += element.weight;
+          if (index !== -1) {
+            rarityData[layerName][index].weight += +element.weight;
           } else {
-            //rarityData[layerName].push(element);
+            rarityData[layerName].push(element);
           }
         });
       }
@@ -60,7 +63,7 @@ const AddToRarityData = (configuration, hasVariants) => {
   });
 };
 AddToRarityData(layerConfigurationsWithVariants, true);
-
+//console.log("RarityData", rarityData);
 // fill up rarity chart with occurrences from metadata
 data.forEach((element) => {
   let attributes = element.attributes;

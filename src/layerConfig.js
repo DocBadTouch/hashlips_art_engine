@@ -124,7 +124,6 @@ const AllBackgroundElements = [
   },
 ];
 const AllBaseElements = [
-  // GURS, Off SHOULDER, JEANS JACKET, JEANS PINK + BOMBER, RED JEANS, SCARFACE SUIT, SHIRT, TSHIRT, JEANS WHITE
   {
     id: 0,
     name: "Mocha",
@@ -803,7 +802,7 @@ const AllGlassesElements = [
     variant: "Default",
     weight: 5,
     path: "Glasses/PINK CHICK.PNG",
-    layerIndex: 4,
+    layerIndex: 5, //
   },
   {
     id: 1,
@@ -811,7 +810,7 @@ const AllGlassesElements = [
     variant: "Default",
     weight: 5,
     path: "Glasses/PINK GLASS.PNG",
-    layerIndex: 4,
+    layerIndex: 5, //
   },
   {
     id: 2,
@@ -819,7 +818,7 @@ const AllGlassesElements = [
     variant: "Default",
     weight: 4,
     path: "Glasses/POLAROID GOLD.PNG",
-    layerIndex: 4,
+    layerIndex: 5, //
   },
   {
     id: 3,
@@ -827,7 +826,7 @@ const AllGlassesElements = [
     variant: "Default",
     weight: 4,
     path: "Glasses/POLAROID PINK.PNG",
-    layerIndex: 4,
+    layerIndex: 5, //
   }, //polaroid purple, red, white
   {
     id: 4,
@@ -835,7 +834,7 @@ const AllGlassesElements = [
     variant: "Default",
     weight: 4,
     path: "Glasses/POLAROID PURPLE.PNG",
-    layerIndex: 4,
+    layerIndex: 5, //
   },
   {
     id: 5,
@@ -843,7 +842,7 @@ const AllGlassesElements = [
     variant: "Default",
     weight: 4,
     path: "Glasses/POLAROID RED.PNG",
-    layerIndex: 4,
+    layerIndex: 5, //
   },
   {
     id: 6,
@@ -851,14 +850,15 @@ const AllGlassesElements = [
     variant: "Default",
     weight: 4,
     path: "Glasses/POLAROID WHITE.PNG",
-    layerIndex: 4,
+    layerIndex: 5, //
   },
   {
     id: 7,
     name: "Pink Striped",
     variant: "Default",
     weight: 3,
-    path: "Glasses/STRIPED GLASS.PNG",
+    path: "Glasses/STRIP GLASS.PNG",
+    layerIndex: 5, //
   }, //yellow
   {
     id: 8,
@@ -866,15 +866,15 @@ const AllGlassesElements = [
     variant: "Default",
     weight: 5,
     path: "Glasses/YELLOW GLASS.PNG",
-    layerIndex: 4,
+    layerIndex: 5, //
   }, // none
   {
     id: 9,
     name: "None",
     variant: "Default",
-    weight: 1125,
+    weight: 1124,
     path: "Glasses/NONE.PNG",
-    layerIndex: 4,
+    layerIndex: 5, //
   },
 ];
 const AllHairElements = [
@@ -884,7 +884,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 5,
     path: "Hair/2 PONY TAILS BLONDE.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 1,
@@ -892,7 +892,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 5,
     path: "Hair/2 PONY TAILS LIGHT BROWN.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 2,
@@ -900,7 +900,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 5,
     path: "Hair/2 PONY TAILS RED.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 3,
@@ -908,7 +908,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 85,
     path: "Hair/BLONDE LONG CURLY.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 4,
@@ -916,7 +916,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 20,
     path: "Hair/BREAKFAST BLONDE.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 5,
@@ -924,7 +924,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 20,
     path: "Hair/BREAKFAST LIGHT BROWN.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 6,
@@ -932,7 +932,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 20,
     path: "Hair/BREAKFAST BROWN.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 7,
@@ -940,7 +940,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 20,
     path: "Hair/BREAKFAST LIGHT RED.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 8,
@@ -948,7 +948,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 85,
     path: "Hair/BROWN LONG CURLY.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 9,
@@ -956,7 +956,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 40,
     path: "Hair/CURLY BOMB BROWN.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 10,
@@ -964,7 +964,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 40,
     path: "Hair/CURLY BOMB RED.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 11,
@@ -972,7 +972,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 15,
     path: "Hair/CURLY PONY TAIL BLONDE.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 12,
@@ -980,7 +980,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 15,
     path: "Hair/CURLY PONY TAIL BROWN.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 13,
@@ -988,7 +988,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 15,
     path: "Hair/CURLY PONY TAIL RED.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 14,
@@ -996,7 +996,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 20,
     path: "Hair/DREAMY LONG BLONDE.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 15,
@@ -1004,7 +1004,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 20,
     path: "Hair/DREAMY LONG BROWN.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 16,
@@ -1012,7 +1012,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 20,
     path: "Hair/DREAMY LONG LIGHT BROWN.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 17,
@@ -1020,7 +1020,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 20,
     path: "Hair/DREAMY LONG RED.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 18,
@@ -1028,7 +1028,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 5,
     path: "Hair/MADONNA BLONDE.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 19,
@@ -1036,7 +1036,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 5,
     path: "Hair/MADONNA LIGHT BROWN.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 20,
@@ -1044,7 +1044,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 5,
     path: "Hair/MADONNA RED.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 21,
@@ -1052,7 +1052,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 5,
     path: "Hair/MAMBA BLACK.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 22,
@@ -1060,7 +1060,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 5,
     path: "Hair/MAMBA RED.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 23,
@@ -1068,7 +1068,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 11,
     path: "Hair/POOFY BLACK.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 24,
@@ -1076,7 +1076,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 11,
     path: "Hair/POOFY BLONDE.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 25,
@@ -1084,7 +1084,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 11,
     path: "Hair/POOFY BROWN.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 26,
@@ -1092,7 +1092,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 175,
     path: "Hair/POP HAIR BROWN.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 27,
@@ -1100,7 +1100,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 175,
     path: "Hair/POP HAIR RED.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 28,
@@ -1108,7 +1108,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 85,
     path: "Hair/RED LONG CURLY.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 29,
@@ -1116,7 +1116,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 5,
     path: "Hair/SCARFACE HAIR.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 30,
@@ -1124,7 +1124,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 65,
     path: "Hair/SHORT CURRLY BLONDE.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 31,
@@ -1132,7 +1132,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 65,
     path: "Hair/SHORT CURRLY BROWN.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
   {
     id: 32,
@@ -1140,7 +1140,7 @@ const AllHairElements = [
     variant: "Default",
     weight: 65,
     path: "Hair/SHORT CURRLY RED.PNG",
-    layerIndex: 5,
+    layerIndex: 4,
   },
 ];
 const AllHeadphoneElements = [
@@ -1162,6 +1162,44 @@ const AllHeadphoneElements = [
   },
 ];
 
+const totalRarityMap = {
+  Background: AllBackgroundElements.reduce((acc, curr) => {
+    let key = `${curr.name}-${curr.variant}`;
+    acc[key] = curr.weight;
+    return acc;
+  }, {}),
+  Base: AllBaseElements.reduce((acc, curr) => {
+    let key = `${curr.name}-${curr.variant}`;
+    acc[key] = curr.weight;
+    return acc;
+  }, {}),
+  Clothes: AllClothesElements.reduce((acc, curr) => {
+    let key = `${curr.name}-${curr.variant}`;
+    acc[key] = curr.weight;
+    return acc;
+  }, {}),
+  Eyes: AllEyeElements.reduce((acc, curr) => {
+    let key = `${curr.name}-${curr.variant}`;
+    acc[key] = curr.weight;
+    return acc;
+  }, {}),
+  Glasses: AllGlassesElements.reduce((acc, curr) => {
+    let key = `${curr.name}-${curr.variant}`;
+    acc[key] = curr.weight;
+    return acc;
+  }, {}),
+  Hair: AllHairElements.reduce((acc, curr) => {
+    let key = `${curr.name}-${curr.variant}`;
+    acc[key] = curr.weight;
+    return acc;
+  }, {}),
+  Headphones: AllHeadphoneElements.reduce((acc, curr) => {
+    let key = `${curr.name}-${curr.variant}`;
+    acc[key] = curr.weight;
+    return acc;
+  }, {}),
+};
+console.log(totalRarityMap);
 module.exports = {
   AllBackgroundElements,
   AllBaseElements,
@@ -1170,4 +1208,5 @@ module.exports = {
   AllHairElements,
   AllEyeElements,
   AllHeadphoneElements,
+  totalRarityMap,
 };

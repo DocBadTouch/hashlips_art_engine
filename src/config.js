@@ -49,7 +49,7 @@ const getBackgroundElements = (ctx) => {
     hasVariants: false,
     elements: AllBackgroundElements.filter(
       (element) => element.name === ctx.name
-    ),
+    ).map((element) => ({ ...element })),
     decisionOrder: 0,
     layerOrder: 0,
   };
@@ -60,7 +60,7 @@ const getBaseElements = (ctx) => {
     hasVariants: false,
     elements: AllBaseElements.filter(
       (element) => element.variant === ctx.variant && element.name === ctx.name
-    ),
+    ).map((element) => ({ ...element })),
     decisionOrder: 2,
     layerOrder: 1,
   };
@@ -68,7 +68,7 @@ const getBaseElements = (ctx) => {
 const getClothesElements = (ctx) => {
   const elements = AllClothesElements.filter(
     (element) => element.variant === ctx.variant && element.name === ctx.name
-  );
+  ).map((element) => ({ ...element }));
   return {
     name: "Clothes",
     hasVariants: false,
@@ -81,7 +81,9 @@ const getEyeElements = (ctx) => {
   return {
     name: "Eyes",
     hasVariants: false,
-    elements: AllEyeElements.filter((element) => element.name === ctx.name),
+    elements: AllEyeElements.filter((element) => element.name === ctx.name).map(
+      (element) => ({ ...element })
+    ),
     decisionOrder: 3,
     layerOrder: 3,
   };
@@ -90,7 +92,9 @@ const getGlassesElements = (ctx) => {
   return {
     name: "Glasses",
     hasVariants: false,
-    elements: AllGlassesElements.filter((element) => element.name === ctx.name),
+    elements: AllGlassesElements.filter(
+      (element) => element.name === ctx.name
+    ).map((element) => ({ ...element })),
     decisionOrder: 4,
     layerOrder: 4,
   };
@@ -99,7 +103,9 @@ const getHairElements = (ctx) => {
   return {
     name: "Hair",
     hasVariants: false,
-    elements: AllHairElements.filter((element) => element.name === ctx.name),
+    elements: AllHairElements.filter(
+      (element) => element.name === ctx.name
+    ).map((element) => ({ ...element })),
     decisionOrder: 5,
     layerOrder: 5,
   };
@@ -110,24 +116,31 @@ const getHeadphoneElements = (ctx) => {
     hasVariants: false,
     elements: AllHeadphoneElements.filter(
       (element) => element.name === ctx.name
-    ),
+    ).map((element) => ({ ...element })),
     decisionOrder: 6,
     layerOrder: 6,
   };
 };
 
 const getSingleVariant = (ctxs, growTo) => {
+  const layersOrder = [
+    getBackgroundElements(ctxs[0]),
+    getBaseElements(ctxs[1]),
+    getClothesElements(ctxs[2]),
+    getEyeElements(ctxs[3]),
+    getHairElements(ctxs[4]),
+    getGlassesElements(ctxs[5]),
+    getHeadphoneElements(ctxs[6]),
+  ];
+  //set each element to have a weight of 1
+  layersOrder.forEach((layer) => {
+    layer.elements.forEach((element) => {
+      element.weight = 1;
+    });
+  });
   return {
     growEditionSizeTo: growTo,
-    layersOrder: [
-      getBackgroundElements(ctxs[0]),
-      getBaseElements(ctxs[1]),
-      getClothesElements(ctxs[2]),
-      getEyeElements(ctxs[3]),
-      getGlassesElements(ctxs[4]),
-      getHairElements(ctxs[5]),
-      getHeadphoneElements(ctxs[6]),
-    ],
+    layersOrder,
   };
 };
 const SingleVariants = [
@@ -136,8 +149,8 @@ const SingleVariants = [
     { variant: "TSHIRTS", name: "Mocha" },
     { variant: "TSHIRTS", name: "Walkman T-Shirt" },
     { name: "Green" },
-    { name: "None" },
     { name: "Pop Brown" },
+    { name: "None" },
     { name: "Headphones" },
   ],
   [
@@ -145,18 +158,17 @@ const SingleVariants = [
     { variant: "GURS", name: "Light" },
     { variant: "GURS", name: "Backpack" },
     { name: "Blue" },
-    { name: "None" },
     { name: "Blonde Long Curly" },
+    { name: "None" },
     { name: "None" },
   ],
   [
     { name: "Arcade" },
     { variant: "GURS", name: "Light" },
     { variant: "GURS", name: "69 Bomber" },
-
     { name: "Blue" },
-    { name: "None" },
     { name: "Madonna Blonde" },
+    { name: "None" },
     { name: "None" },
   ],
   [
@@ -164,8 +176,8 @@ const SingleVariants = [
     { variant: "TSHIRTS", name: "Olive" },
     { variant: "TSHIRTS", name: "Atari T-Shirt" },
     { name: "Blue" },
-    { name: "None" },
     { name: "Blonde Ponytails" },
+    { name: "None" },
     { name: "None" },
   ],
   [
@@ -173,8 +185,8 @@ const SingleVariants = [
     { variant: "TSHIRTS", name: "Olive" },
     { variant: "TSHIRTS", name: "SEGA T-Shirt" },
     { name: "Brown" },
-    { name: "None" },
     { name: "Scarface" },
+    { name: "None" },
     { name: "None" },
   ],
   [
@@ -182,8 +194,8 @@ const SingleVariants = [
     { variant: "SCARFACE SUIT", name: "Light" },
     { variant: "SCARFACE SUIT", name: "Scarface Suit" },
     { name: "Blue" },
-    { name: "None" },
     { name: "Scarface" },
+    { name: "None" },
     { name: "None" },
   ],
   [
@@ -191,8 +203,8 @@ const SingleVariants = [
     { variant: "JEANS PINK + BOMBER", name: "Light" },
     { variant: "JEANS PINK + BOMBER", name: "Red Carrot Bomber" },
     { name: "Blue" },
-    { name: "None" },
     { name: "Pop Red" },
+    { name: "None" },
     { name: "None" },
   ],
   [
@@ -200,8 +212,8 @@ const SingleVariants = [
     { variant: "GURS", name: "Light" },
     { variant: "GURS", name: "Gold Bomber" },
     { name: "Blue" },
-    { name: "Polaroid Gold" },
     { name: "Madonna Red" },
+    { name: "Polaroid Gold" },
     { name: "None" },
   ],
   [
@@ -209,8 +221,8 @@ const SingleVariants = [
     { variant: "GURS", name: "Light" },
     { variant: "GURS", name: "69 Bomber" },
     { name: "Green" },
-    { name: "None" },
     { name: "Red Short Curly" },
+    { name: "None" },
     { name: "None" },
   ],
 ];
@@ -224,25 +236,42 @@ const getAdjustedWeightElememtsDueToSingleVariants = (
   layerName,
   elements
 ) => {
+  console.log("LayerName \n", layerName);
+  const singleVariantsLayerToCheck = singleVariants.map((variant) => {
+    const variantLayerToCheck = variant.layersOrder.find(
+      (layer) => layer.name === layerName
+    );
+    return variantLayerToCheck;
+  });
   return elements.map((element) => {
     const elementCopy = { ...element };
 
     let numberOfVariants = 0;
-    singleVariants.forEach((variant) => {
-      const variantLayerToCheck = variant.layersOrder.find(
-        (layer) => layer.name === layerName
-      );
-
-      const variantElemnt = variantLayerToCheck.elements.find(
+    singleVariantsLayerToCheck.forEach((layer) => {
+      const variantElemnt = layer.elements.find(
         (variantElement) =>
           variantElement.name === element.name &&
           variantElement.variant === element.variant
       );
       if (variantElemnt) {
         numberOfVariants++;
+        /* console.log({
+          variantName: variantElemnt.name,
+          variantElement: variantElemnt.variant,
+          numberOfVariants,
+        }); */
       }
     });
-    elementCopy.weight = element.weight - numberOfVariants;
+    /* console.log(
+      "ElementName: ",
+      elementCopy.name,
+      "OriginalWeight: ",
+      elementCopy.weight,
+      "NumVariants: ",
+      numberOfVariants
+    ); */
+    elementCopy.weight = +elementCopy.weight - numberOfVariants;
+
     return elementCopy;
   });
 };
@@ -298,17 +327,7 @@ const layerConfigurationsWithVariants = [
         decisionOrder: 3,
         layerOrder: 3,
       },
-      {
-        name: "Glasses",
-        hasVariants: false,
-        elements: getAdjustedWeightElememtsDueToSingleVariants(
-          AllSingleVariants,
-          "Glasses",
-          AllGlassesElements
-        ),
-        decisionOrder: 4,
-        layerOrder: 4,
-      },
+
       {
         name: "Hair",
         hasVariants: false,
@@ -316,6 +335,17 @@ const layerConfigurationsWithVariants = [
           AllSingleVariants,
           "Hair",
           AllHairElements
+        ),
+        decisionOrder: 4,
+        layerOrder: 4,
+      },
+      {
+        name: "Glasses",
+        hasVariants: false,
+        elements: getAdjustedWeightElememtsDueToSingleVariants(
+          AllSingleVariants,
+          "Glasses",
+          AllGlassesElements
         ),
         decisionOrder: 5,
         layerOrder: 5,
@@ -420,7 +450,7 @@ const clothesGetElements = (ctx) => {
   }
 ] */
 
-const shuffleLayerConfigurations = false;
+const shuffleLayerConfigurations = true;
 
 const debugLogs = false;
 
