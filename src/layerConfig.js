@@ -128,7 +128,7 @@ const AllBaseElements = [
     id: 0,
     name: "Mocha",
     variant: "GURS",
-    weight: 389,
+    weight: 145,
     path: "variants/GURS/Base/MOCHA.PNG",
     layerIndex: 1,
   },
@@ -136,7 +136,7 @@ const AllBaseElements = [
     id: 1,
     name: "Olive",
     variant: "GURS",
-    weight: 387,
+    weight: 144,
     path: "variants/GURS/Base/OLIVE.PNG",
     layerIndex: 1,
   },
@@ -144,7 +144,7 @@ const AllBaseElements = [
     id: 2,
     name: "Light",
     variant: "GURS",
-    weight: 387,
+    weight: 144,
     path: "variants/GURS/Base/LIGHT.PNG",
     layerIndex: 1,
   },
@@ -152,7 +152,7 @@ const AllBaseElements = [
     id: 0,
     name: "Mocha",
     variant: "OFF SHOULDER",
-    weight: 389,
+    weight: 10,
     path: "variants/OFF SHOULDER/Base/MOCHA.PNG",
     layerIndex: 1,
   },
@@ -160,7 +160,7 @@ const AllBaseElements = [
     id: 1,
     name: "Olive",
     variant: "OFF SHOULDER",
-    weight: 387,
+    weight: 10,
     path: "variants/OFF SHOULDER/Base/OLIVE.PNG",
     layerIndex: 1,
   },
@@ -168,7 +168,7 @@ const AllBaseElements = [
     id: 2,
     name: "Light",
     variant: "OFF SHOULDER",
-    weight: 387,
+    weight: 10,
     path: "variants/OFF SHOULDER/Base/LIGHT.PNG",
     layerIndex: 1,
   },
@@ -176,7 +176,7 @@ const AllBaseElements = [
     id: 0,
     name: "Mocha",
     variant: "JEANS JACKET",
-    weight: 389,
+    weight: 10,
     path: "variants/JEANS JACKET/Base/MOCHA.PNG",
     layerIndex: 1,
   },
@@ -184,7 +184,7 @@ const AllBaseElements = [
     id: 1,
     name: "Olive",
     variant: "JEANS JACKET",
-    weight: 387,
+    weight: 10,
     path: "variants/JEANS JACKET/Base/OLIVE.PNG",
     layerIndex: 1,
   },
@@ -192,7 +192,7 @@ const AllBaseElements = [
     id: 2,
     name: "Light",
     variant: "JEANS JACKET",
-    weight: 387,
+    weight: 10,
     path: "variants/JEANS JACKET/Base/LIGHT.PNG",
     layerIndex: 1,
   },
@@ -200,7 +200,7 @@ const AllBaseElements = [
     id: 0,
     name: "Mocha",
     variant: "JEANS PINK + BOMBER",
-    weight: 389,
+    weight: 30,
     path: "variants/JEANS PINK + BOMBER/Base/MOCHA.PNG",
     layerIndex: 1,
   },
@@ -208,7 +208,7 @@ const AllBaseElements = [
     id: 1,
     name: "Olive",
     variant: "JEANS PINK + BOMBER",
-    weight: 387,
+    weight: 30,
     path: "variants/JEANS PINK + BOMBER/Base/OLIVE.PNG",
     layerIndex: 1,
   },
@@ -216,7 +216,7 @@ const AllBaseElements = [
     id: 2,
     name: "Light",
     variant: "JEANS PINK + BOMBER",
-    weight: 387,
+    weight: 30,
     path: "variants/JEANS PINK + BOMBER/Base/LIGHT.PNG",
     layerIndex: 1,
   },
@@ -224,7 +224,7 @@ const AllBaseElements = [
     id: 0,
     name: "Mocha",
     variant: "RED JEANS",
-    weight: 389,
+    weight: 6,
     path: "variants/RED JEANS/Base/MOCHA.PNG",
     layerIndex: 1,
   },
@@ -232,7 +232,7 @@ const AllBaseElements = [
     id: 1,
     name: "Olive",
     variant: "RED JEANS",
-    weight: 387,
+    weight: 7,
     path: "variants/RED JEANS/Base/OLIVE.PNG",
     layerIndex: 1,
   },
@@ -240,7 +240,7 @@ const AllBaseElements = [
     id: 2,
     name: "Light",
     variant: "RED JEANS",
-    weight: 387,
+    weight: 7,
     path: "variants/RED JEANS/Base/LIGHT.PNG",
     layerIndex: 1,
   },
@@ -248,7 +248,7 @@ const AllBaseElements = [
     id: 0,
     name: "Mocha",
     variant: "SCARFACE SUIT",
-    weight: 389,
+    weight: 1,
     path: "variants/SCARFACE SUIT/Base/MOCHA.PNG",
     layerIndex: 1,
   },
@@ -256,7 +256,7 @@ const AllBaseElements = [
     id: 1,
     name: "Olive",
     variant: "SCARFACE SUIT",
-    weight: 387,
+    weight: 1,
     path: "variants/SCARFACE SUIT/Base/OLIVE.PNG",
     layerIndex: 1,
   },
@@ -264,7 +264,7 @@ const AllBaseElements = [
     id: 2,
     name: "Light",
     variant: "SCARFACE SUIT",
-    weight: 387,
+    weight: 1,
     path: "variants/SCARFACE SUIT/Base/LIGHT.PNG",
     layerIndex: 1,
   },
@@ -272,7 +272,7 @@ const AllBaseElements = [
     id: 0,
     name: "Mocha",
     variant: "SHIRT",
-    weight: 389,
+    weight: 33,
     path: "variants/SHIRT/Base/MOCHA.PNG",
     layerIndex: 1,
   },
@@ -280,7 +280,7 @@ const AllBaseElements = [
     id: 1,
     name: "Olive",
     variant: "SHIRT",
-    weight: 387,
+    weight: 33,
     path: "variants/SHIRT/Base/OLIVE.PNG",
     layerIndex: 1,
   },
@@ -288,7 +288,7 @@ const AllBaseElements = [
     id: 2,
     name: "Light",
     variant: "SHIRT",
-    weight: 387,
+    weight: 34,
     path: "variants/SHIRT/Base/LIGHT.PNG",
     layerIndex: 1,
   },
@@ -296,7 +296,7 @@ const AllBaseElements = [
     id: 0,
     name: "Mocha",
     variant: "TSHIRTS",
-    weight: 389,
+    weight: 144,
     path: "variants/TSHIRTS/Base/MOCHA.PNG",
     layerIndex: 1,
   },
@@ -304,7 +304,7 @@ const AllBaseElements = [
     id: 1,
     name: "Olive",
     variant: "TSHIRTS",
-    weight: 387,
+    weight: 144,
     path: "variants/TSHIRTS/Base/OLIVE.PNG",
     layerIndex: 1,
   },
@@ -312,7 +312,7 @@ const AllBaseElements = [
     id: 2,
     name: "Light",
     variant: "TSHIRTS",
-    weight: 387,
+    weight: 144,
     path: "variants/TSHIRTS/Base/LIGHT.PNG",
     layerIndex: 1,
   },
@@ -320,7 +320,7 @@ const AllBaseElements = [
     id: 0,
     name: "Mocha",
     variant: "JEANS WHITE",
-    weight: 389,
+    weight: 9,
     path: "variants/JEANS WHITE/Base/MOCHA.PNG",
     layerIndex: 1,
   },
@@ -328,7 +328,7 @@ const AllBaseElements = [
     id: 1,
     name: "Olive",
     variant: "JEANS WHITE",
-    weight: 387,
+    weight: 8,
     path: "variants/JEANS WHITE/Base/OLIVE.PNG",
     layerIndex: 1,
   },
@@ -336,7 +336,7 @@ const AllBaseElements = [
     id: 2,
     name: "Light",
     variant: "JEANS WHITE",
-    weight: 387,
+    weight: 8,
     path: "variants/JEANS WHITE/Base/LIGHT.PNG",
     layerIndex: 1,
   },
@@ -542,7 +542,7 @@ const AllClothesElements = [
     weight: 5,
     path: "variants/GURS/Clothes/WHITE PLAYER.PNG",
     layerIndex: 2,
-  },
+  }, //total gurs variants: 473
   {
     id: 25,
     name: "Off the Shoulder",
@@ -550,7 +550,7 @@ const AllClothesElements = [
     weight: 30,
     path: "variants/OFF SHOULDER/Clothes/GURS OFF SHOULDER.PNG",
     layerIndex: 2,
-  },
+  }, //total off shoulder variants: 30
   {
     id: 26,
     name: "Blue Jeans Jacket",
@@ -574,7 +574,7 @@ const AllClothesElements = [
     weight: 10,
     path: "variants/JEANS JACKET/Clothes/JEANS JACKET GREY.PNG",
     layerIndex: 2,
-  },
+  }, //total jeans jacket variants: 30
   {
     id: 29,
     name: "Pink Jeans Cutoff",
@@ -590,7 +590,7 @@ const AllClothesElements = [
     weight: 60,
     path: "variants/JEANS PINK + BOMBER/Clothes/RED CAROT.PNG",
     layerIndex: 2,
-  },
+  }, //total jeans pink + bomber variants: 90
   {
     id: 31,
     name: "Red with Overalls",
@@ -598,7 +598,7 @@ const AllClothesElements = [
     weight: 20,
     path: "variants/RED JEANS/Clothes/RED JEANS.PNG",
     layerIndex: 2,
-  },
+  }, //total red jeans variants: 20
   {
     id: 32,
     name: "Scarface Suit",
@@ -606,7 +606,7 @@ const AllClothesElements = [
     weight: 3,
     path: "variants/SCARFACE SUIT/Clothes/SCARFACE SUIT.PNG",
     layerIndex: 2,
-  },
+  }, //total scarface suit variants: 3
   {
     id: 33,
     name: "Blue Collar Shirt",
@@ -622,7 +622,7 @@ const AllClothesElements = [
     weight: 50,
     path: "variants/SHIRT/Clothes/PINK COLLAR SHIRT.PNG",
     layerIndex: 2,
-  },
+  }, //total shirt variants: 100
   {
     id: 35,
     name: "Blue Jeans Jumpsuit",
@@ -750,7 +750,7 @@ const AllClothesElements = [
     weight: 20,
     path: "variants/TSHIRTS/Clothes/TSHIRT WALKMAN.PNG",
     layerIndex: 2,
-  },
+  }, //total tshirt variants: 416
   {
     id: 51,
     name: "White Jeans Bomber",
@@ -872,7 +872,7 @@ const AllGlassesElements = [
     id: 9,
     name: "None",
     variant: "Default",
-    weight: 1124,
+    weight: 1125,
     path: "Glasses/NONE.PNG",
     layerIndex: 5, //
   },
@@ -1200,6 +1200,72 @@ const totalRarityMap = {
   }, {}),
 };
 console.log(totalRarityMap);
+
+const { TotalWeightOfEachClothesVariants, TotalWeightOfEachClothesName } =
+  AllClothesElements.reduce(
+    (acc, curr) => {
+      let key = `${curr.variant}`;
+      acc.TotalWeightOfEachClothesVariants[key] = acc
+        .TotalWeightOfEachClothesVariants[key]
+        ? acc.TotalWeightOfEachClothesVariants[key] + curr.weight
+        : curr.weight;
+      acc.TotalWeightOfEachClothesName[curr.name] = curr.weight;
+      return acc;
+    },
+    { TotalWeightOfEachClothesVariants: {}, TotalWeightOfEachClothesName: {} }
+  );
+const { TotalWeightOfEachBaseVariants, TotalWeightOfEachBaseName } =
+  AllBaseElements.reduce(
+    (acc, curr) => {
+      let key = `${curr.variant}`;
+      acc.TotalWeightOfEachBaseVariants[key] = acc
+        .TotalWeightOfEachBaseVariants[key]
+        ? acc.TotalWeightOfEachBaseVariants[key] + curr.weight
+        : curr.weight;
+      acc.TotalWeightOfEachBaseName[curr.name] = curr.weight;
+      return acc;
+    },
+    { TotalWeightOfEachBaseVariants: {}, TotalWeightOfEachBaseName: {} }
+  );
+
+const totalGlassesWeight = AllGlassesElements.reduce((acc, curr) => {
+  return acc + curr.weight;
+}, 0);
+const totalHairWeight = AllHairElements.reduce((acc, curr) => {
+  return acc + curr.weight;
+}, 0);
+const totalHeadphoneWeight = AllHeadphoneElements.reduce((acc, curr) => {
+  return acc + curr.weight;
+}, 0);
+const totalEyeWeight = AllEyeElements.reduce((acc, curr) => {
+  return acc + curr.weight;
+}, 0);
+const totalBackgroundWeight = AllBackgroundElements.reduce((acc, curr) => {
+  return acc + curr.weight;
+}, 0);
+const totalBaseWeight = AllBaseElements.reduce((acc, curr) => {
+  return acc + curr.weight;
+}, 0);
+const totalClothesWeight = AllClothesElements.reduce((acc, curr) => {
+  return acc + curr.weight;
+}, 0);
+console.log({
+  totalGlassesWeight,
+  totalHairWeight,
+  totalHeadphoneWeight,
+  totalEyeWeight,
+  totalBackgroundWeight,
+  totalBaseWeight,
+  totalClothesWeight,
+});
+console.log("TotalWeightOfEachBaseVariants", TotalWeightOfEachBaseVariants);
+console.log("TotalWeightOfEachBaseName", TotalWeightOfEachBaseName);
+console.log(
+  "TotalWeightOfEachClothesVariants",
+  TotalWeightOfEachClothesVariants
+);
+console.log("TotalWeightOfEachClothesName", TotalWeightOfEachClothesName);
+
 module.exports = {
   AllBackgroundElements,
   AllBaseElements,

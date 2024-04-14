@@ -376,9 +376,9 @@ const createDnaWithVariants = (_layers) => {
       });
       // number between 0 - totalWeight
       if (elements.length == 0) {
-        console.log(
+        /* console.log(
           `Layer ${layer.name} has no elements with variant ${variant}. Skipping layer.`
-        );
+        ); */
         isNotValid = true;
         variant = null;
         keysUsed = [];
@@ -400,9 +400,9 @@ const createDnaWithVariants = (_layers) => {
             //console.log(`Element ${key} has been used ${usedCount} times.`);
             let flexedRarity =
               rarityLayer[elKey] >= 100
-                ? rarityLayer[elKey] * 1.01
+                ? rarityLayer[elKey]
                 : rarityLayer[elKey];
-            if (usedCount > flexedRarity /* give some flex */) {
+            if (usedCount == flexedRarity /* give some flex */) {
               /* console.log("LayerName", layer.name, elements);
               console.log("Layers", layers); */
               console.log(
@@ -445,7 +445,9 @@ const createDnaWithVariants = (_layers) => {
       }
       if (isNotValid) {
         console.log("Trying again...");
-
+        isNotValid = true;
+        variant = null;
+        keysUsed = [];
         break;
       }
     }
@@ -462,6 +464,7 @@ const createDnaWithVariants = (_layers) => {
   return {
     newDna: randNum.join(DNA_DELIMITER),
     variant,
+    keysUsed,
     //layersInDNAOrder: actualLayerOrder,
   };
 };
@@ -551,7 +554,7 @@ const startCreating = async (hasVariants) => {
     while (
       editionCount <= layerConfigurations[layerConfigIndex].growEditionSizeTo
     ) {
-      let { newDna, variant /* layersInDNAOrder */ } = hasVariants
+      let { newDna, variant, keysUsed /* layersInDNAOrder */ } = hasVariants
         ? createDnaWithVariants(layers)
         : createDna(layers);
       console.log("newDna", newDna);
@@ -614,6 +617,14 @@ const startCreating = async (hasVariants) => {
         abstractedIndexes.shift();
       } else {
         console.log("DNA exists!");
+        keysUsed.forEach((key) => {
+          if (usedLayerElements.has(key)) {
+            const usedCount = usedLayerElements.get(key);
+            usedLayerElements.set(key, usedCount - 1);
+          } else {
+            usedLayerElements.set(key, 0);
+          }
+        });
         failedCount++;
         if (failedCount >= uniqueDnaTorrance) {
           console.log(

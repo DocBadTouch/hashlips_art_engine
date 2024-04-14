@@ -61,7 +61,7 @@ const getBaseElements = (ctx) => {
     elements: AllBaseElements.filter(
       (element) => element.variant === ctx.variant && element.name === ctx.name
     ).map((element) => ({ ...element })),
-    decisionOrder: 2,
+    decisionOrder: 1,
     layerOrder: 1,
   };
 };
@@ -73,7 +73,7 @@ const getClothesElements = (ctx) => {
     name: "Clothes",
     hasVariants: false,
     elements: elements,
-    decisionOrder: 1,
+    decisionOrder: 2,
     layerOrder: 2,
   };
 };
@@ -236,7 +236,7 @@ const getAdjustedWeightElememtsDueToSingleVariants = (
   layerName,
   elements
 ) => {
-  console.log("LayerName \n", layerName);
+  //console.log("LayerName \n", layerName);
   const singleVariantsLayerToCheck = singleVariants.map((variant) => {
     const variantLayerToCheck = variant.layersOrder.find(
       (layer) => layer.name === layerName
@@ -263,6 +263,8 @@ const getAdjustedWeightElememtsDueToSingleVariants = (
       }
     });
     /* console.log(
+      "Element Variant: ",
+      elementCopy.variant,
       "ElementName: ",
       elementCopy.name,
       "OriginalWeight: ",
@@ -302,7 +304,7 @@ const layerConfigurationsWithVariants = [
           "Base",
           AllBaseElements
         ),
-        decisionOrder: 2,
+        decisionOrder: 1,
         layerOrder: 1,
       },
       {
@@ -313,7 +315,7 @@ const layerConfigurationsWithVariants = [
           "Clothes",
           AllClothesElements
         ),
-        decisionOrder: 1,
+        decisionOrder: 2,
         layerOrder: 2,
       },
       {
@@ -364,6 +366,40 @@ const layerConfigurationsWithVariants = [
     ],
   },
 ];
+//print out rarity data from layerConfigurationsWithVariants
+const afterConfigLayersRarity = layerConfigurationsWithVariants.reduce(
+  (acc, layerConfig) => {
+    const layersOrder = layerConfig.layersOrder;
+    layersOrder.forEach((layer) => {
+      const elements = layer.elements;
+      elements.forEach((element) => {
+        const key = `${element.variant}-${element.name}`;
+        if (!acc[layer.name]) {
+          acc[layer.name] = {};
+        }
+        if (!acc[layer.name][key]) {
+          acc[layer.name][key] = element.weight;
+        } else {
+          acc[layer.name][key] += element.weight;
+        }
+        /* console.log(
+          "LayerName: ",
+          layer.name,
+          "ElementName: ",
+          element.name,
+          "ElementVariant: ",
+          element.variant,
+          "ElementWeight: ",
+          element.weight
+        ); */
+      });
+    });
+    return acc;
+  },
+  {}
+);
+console.log("AfterConfigLayersRarity \n", afterConfigLayersRarity);
+
 /* {
     growEditionSizeTo: 1,
     layersOrder: [
@@ -498,18 +534,18 @@ const rarityDelimiter = "#";
 const uniqueDnaTorrance = 10000;
 
 const preview = {
-  thumbPerRow: 5,
-  thumbWidth: 50,
+  thumbPerRow: 27,
+  thumbWidth: 150,
   imageRatio: format.height / format.width,
   imageName: "preview.PNG",
 };
 
 const preview_gif = {
-  numberOfImages: 5,
-  order: "ASC", // ASC, DESC, MIXED
+  numberOfImages: 50,
+  order: "MIXED", // ASC, DESC, MIXED
   repeat: 0,
   quality: 100,
-  delay: 500,
+  delay: 200,
   imageName: "preview.gif",
 };
 
