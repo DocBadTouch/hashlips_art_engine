@@ -1265,7 +1265,15 @@ console.log(
   TotalWeightOfEachClothesVariants
 );
 console.log("TotalWeightOfEachClothesName", TotalWeightOfEachClothesName);
-
+const AllConfigElements = {
+  Background: AllBackgroundElements,
+  Base: AllBaseElements,
+  Clothes: AllClothesElements,
+  Eyes: AllEyeElements,
+  Glasses: AllGlassesElements,
+  Hair: AllHairElements,
+  Headphones: AllHeadphoneElements,
+};
 module.exports = {
   AllBackgroundElements,
   AllBaseElements,
@@ -1275,4 +1283,5 @@ module.exports = {
   AllEyeElements,
   AllHeadphoneElements,
   totalRarityMap,
+  AllConfigElements,
 };
